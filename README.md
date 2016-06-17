@@ -86,11 +86,11 @@ Spring Framework- Basic Level
 <hr>
 <b>using Annotation:</b><br>
 
-Simply include the <context:annotation-config> element in your bean configuration file.
+<p>Simply include the : context:annotation-config  element in your bean configuration file.</p>
 
 <b>AutoDiscovery of bean</b><br>
 <ul type="circle">
-<li><context:component-scan base-package="com.spring.example.controller"/></li>
+<li>context:component-scan base-package="com.spring.example.controller"</li>
 </ul>
 <ul>
 <li>@Component: A generl-purpose stereotype annotation indicating that the class is a Spring component.</li>
