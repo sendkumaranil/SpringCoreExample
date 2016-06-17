@@ -138,6 +138,14 @@ Simply include the <context:annotation-config> element in your bean configuratio
 		</props>
 	</property>
 	
+	<property name="govtIds">
+		<map>
+			<entry key="PANCARD" value="BAKSK7836H"></entry>
+			<entry key="ELECTIONCARD" value="A123Z004"></entry>
+			<entry key="DRIVINGLICENSE" value="DL1020167"></entry>
+		</map>
+	</property>
+	
 <hr>
 <b>Bean Life Cycle:</b><br>
 
