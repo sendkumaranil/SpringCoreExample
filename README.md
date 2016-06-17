@@ -174,15 +174,15 @@ Spring Framework- Basic Level
 <hr>
 <b>Database Access:</b><br>
 <p>Using database access by pre-built Integration classes: </p>
-	<ul>
-		<li>JDBC:jdbcTemplate</li>
-		<li>JDO:JdoTemplate</li>
-		<li>Hibernate:HibernateTemplate</li>
-		<li>NamedParameterJdbcTemplate</li>
-		<li>SimpleJdbcTemplate</li>
-		<li>SimpleJdbcCall</li>
-		<li>SimpleJdbcInsert</li>
-	</ul>
+<ul>
+<li>JDBC:jdbcTemplate</li>
+<li>JDO:JdoTemplate</li>
+<li>Hibernate:HibernateTemplate</li>
+<li>NamedParameterJdbcTemplate</li>
+<li>SimpleJdbcTemplate</li>
+<li>SimpleJdbcCall</li>
+<li>SimpleJdbcInsert</li>
+</ul>
 
 <b>Data Source by JDBC Driver</b><br>
 	<ul>
