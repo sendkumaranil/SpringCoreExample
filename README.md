@@ -62,6 +62,21 @@ Spring Framework- Basic Level
 	<ul><li>BeanFactory (legacy)</li>
 	<li>ApplicationContext -Support Internationlization, Event publishing, Automatic BeanPostProcessor</li></ul>
 
+<b>ApplicationContext</b><br>
+<ul type="circle">
+	<li>The Application Context is spring's more advance container.</li>
+	<li>It includes all functionality of BeanFactory.</li>
+	<li>Similar to BeanFactory it can load bean definition,wire beans together and dispose bean upon request.</li>
+	<li>additionaly it adds more enterprise-specific functionality.</li>
+	<li>It support Internationalization and Event publishing.</li>
+</ul>
+
+<b>ApplicationContext Implementation:</b>
+<ul>
+<li><b>FileSystemXmlApplicationContext:</b>This container loads the definitions of bean from XML file.<br>Here XML file will be search from Operating System File path.</li>
+<li><b>ClassPathXmlApplicationContext:</b>This container loads the definitions of bean from XML file.<br>Here XML file will be search from CLASSPATH path.</li>
+<li><b>XmlWebApplicationContext:</b>This container loads the definitions of bean from XML file within Web Application.</li>
+</ul>
 <hr>
 <b>Bean Scope:</b><br>
 <ul>
