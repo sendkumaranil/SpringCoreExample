@@ -171,4 +171,86 @@ Spring Framework- Basic Level
 	-> Ready to use -> shutdown -> DisposableBean (destroy) -> Call Custom destroy-method
 	</b>
 
+<hr>
+<b>Database Access:</b><br>
+<p>Using database access by pre-built Integration classes: </p>
+	<ul>
+		<li>JDBC:jdbcTemplate</li>
+		<li>JDO:JdoTemplate</li>
+		<li>Hibernate:HibernateTemplate</li>
+		<li>NamedParameterJdbcTemplate</li>
+		<li>SimpleJdbcTemplate</li>
+		<li>SimpleJdbcCall</li>
+		<li>SimpleJdbcInsert</li>
+	</ul>
+
+<b>Data Source by JDBC Driver</b><br>
+	<ul>
+		<li><b>DriverManagerDataSource:</b>Returns a new connection every time that a connection is requested.</li>
+		<li><b>SingleConnectionDatasource:</b>Returns the same connection every time that connection is required</li>
+	</ul>
+
+<b>Data Source with connection pooling</b><br>
+
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource>
+			<property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+			<property name="url" value="jdbc:jsqldb:hsql://localhost/myapp/mydb"/>
+			<property name="username" value="root"/>
+			<property name="password" value="password"/>
+			<property name="intialSize" value="5"/>
+			<property name="maxActive" value="10"/>
+		</bean>
+		
+<b>Data Source by JNDI</b><br>
+
+		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName" value="/jdbc/mydbDataSource"/>
+			<property name="resourceRef" value="true"/>
+		</bean>
+		
+<b>Accessing JdbcTemplate</b><br>
+
+		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+			<property name="dataSource" ref="dataSource"/>
+		</bean>
+		
+		<bean id="empDao" class="com.myapp.examples.dao.EmployeeDao">
+			<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		</bean>
+
+<b>Accessing HibernateTemplate</b><br>
+
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">  
+			<property name="driverClassName"  value="oracle.jdbc.driver.OracleDriver"></property>  
+			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>  
+			<property name="username" value="system"></property>  
+			<property name="password" value="oracle"></property>  
+		</bean>  
+		  
+		<bean id="mysessionFactory"  class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">  
+			<property name="dataSource" ref="dataSource"></property>  
+			  
+			<property name="mappingResources">  
+				<list>  
+					<value>employee.hbm.xml</value>  
+				</list>  
+			</property>  
+			  
+			<property name="hibernateProperties">  
+				<props>  
+					<prop key="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</prop>  
+					<prop key="hibernate.hbm2ddl.auto">update</prop>  
+					<prop key="hibernate.show_sql">true</prop>  
+				</props>  
+			</property>  
+		</bean>  
+		  
+		<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">  
+			<property name="sessionFactory" ref="mysessionFactory"></property>  
+		</bean>  
+		  
+		<bean id="empDao" class="com.javatpoint.EmployeeDao">  
+			<property name="template" ref="hibernateTemplate"></property>  
+		</bean>  
+		
 
