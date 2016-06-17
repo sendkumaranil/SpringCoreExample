@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context/
+  http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Other bean definitions -->
+
+	<!-- Employee Setter Injection -->
+	<bean id="employee" class="org.springexamples.bean.Employee">
+		<property name="empid" value="10002" />
+		<property name="empname" value="Anil Kumar" />
+		<property name="phoneno">
+			<list>
+				<value>8871542120</value>
+				<value>7564898610</value>
+				<value>9916722847</value>
+			</list>
+		</property>
+		<property name="govtIds">
+			<map>
+				<entry key="PANCARD" value="BAKSK7836H"></entry>
+				<entry key="ELECTIONCARD" value="A123Z004"></entry>
+				<entry key="DRIVINGLICENSE" value="DL1020167"></entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- Employee Constructor Injection -->
+	<bean id="emp" class="org.springexamples.bean.Employee">
+		<constructor-arg name="empid" value="1004" />
+		<constructor-arg name="empname" value="Anil Verma" />
+	</bean>
+
+	<!-- Injecting Reference Address bean with Employee -->
+	<bean id="address" class="org.springexamples.bean.Address">
+		<property name="address1" value="Jayanthi Nilyam, House-56,Sector-2" />
+		<property name="city" value="Bangalore" />
+		<property name="state" value="Karnataka" />
+	</bean>
+
+	<bean id="myEmp" class="org.springexamples.bean.Employee">
+		<property name="empadd" ref="address" />
+		<property name="empid" value="10005" />
+		<property name="empname" value="Anil Kumar Verma" />
+	</bean>
+
+	<!-- Initialization and Destruction of Bean -->
+	<bean id="person" class="org.springexamples.bean.Person">
+		<property name="personid" value="12345" />
+		<property name="personName" value="Anil K." />
+	</bean>
+
+	<bean id="customer" class="org.springexamples.bean.Customer"
+		init-method="myInit" destroy-method="myDestroy">
+		<property name="custId" value="22443" />
+		<property name="custName" value="A. Kumar" />
+	</bean>
+
+	<!-- Bean Scope Prototype-->
+	<bean id="myPerson" class="org.springexamples.bean.Person" scope="prototype">
+		<property name="personid" value="21003" />
+		<property name="personName" value="Anil K Verma" />
+	</bean>
+	
+   <!-- Autowiring Address bean with Employee bean using byName -->
+   	<bean id="myEmployee" class="org.springexamples.bean.Employee" autowire="byName">		
+		<property name="empid" value="543100" />
+		<property name="empname" value="A. K. V." />
+	</bean>
+	
+	<bean id="empadd" class="org.springexamples.bean.Address">
+		<property name="address1" value="j K Paradaise,4th Cross,13th Main" />
+		<property name="city" value="Bangalore" />
+		<property name="state" value="Karnataka" />
+	</bean>
+	<!-- for byType only one bean of address should be defined in container. -->
+	
+	<!-- Autowiring Address bean with Customer bean using constructor -->
+	<bean id="myCustomer" class="org.springexamples.bean.Customer" autowire="constructor">
+		<property name="custId" value="1100" />
+		<property name="custName" value="Kumar Anil" />
+	</bean>
+	
+	<!-- ApplicationContextAware,BeanNameAware Example -->
+	<bean id="account" class="org.springexamples.bean.Account">
+		<property name="accountno" value="1100234" />
+		<property name="accountname" value="Mr. Anil Kumar" />
+	</bean>
+	
+	<!-- Internationalization using MessageResource and ResourceBundleMessageResource -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages</value><!-- this is messages.properties file -->
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="personMsg" class="org.springexamples.bean.Person">
+		<property name="personid" value="21003" />
+		<property name="personName" value="Anil K Verma" />
+		<property name="messageSource" ref="messageSource"/>
+	</bean>
+	
+	<!-- Spring Database access using JdbcTemplate -->
+	<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/test"/>
+		<property name="username" value="root"/>
+		<property name="password" value="root"/>
+	</bean>
+	
+	<bean id="myJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="myDataSource"/>
+	</bean>
+	
+	<bean id="myEmployeeDao" class="org.springexamples.daoImpl.MyEmployeeDaoImpl">
+		<property name="empJdbcTemplate" ref="myJdbcTemplate"/>
+	</bean>
+	
+	<bean id="empService" class="org.springexample.service.MyEmployeeService">
+		<property name="employeeObj" ref="myEmployeeDao"/>
+	</bean>
+</beans>
