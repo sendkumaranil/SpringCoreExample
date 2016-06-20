@@ -129,6 +129,10 @@ public class EmployeeDbClient {
 			empService.fetchEmployee();
 		//------------------------------------------------------------------
 		*/
+		
+		MyEmployee emp=new MyEmployee();
+		emp.setEmpid(12);
+		empService.getEmployeeUsingStoredProcById(emp);
 	}
 
 }
