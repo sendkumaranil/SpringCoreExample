@@ -125,4 +125,28 @@
 	<bean id="empService" class="org.springexample.service.MyEmployeeService">
 		<property name="employeeObj" ref="myEmployeeDao"/>
 	</bean>
+	<!-- Spring Database access using HibernateTemplate -->
+	<bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"/>
+		<property name="annotatedClasses">
+			<list>
+				<value>org.springexamples.bean.Movie</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="myHibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="hibernateSessionFactory"/>
+	</bean>
+	<bean id="movieDao" class="org.springexamples.daoImpl.MovieDaoImpl">
+		<property name="myhibernateTemplate" ref="myHibernateTemplate"></property>
+	</bean>
+	<bean id="movieService" class="org.springexample.service.MovieService">
+		<property name="objMovieDao" ref="movieDao"></property>
+	</bean>
 </beans>
