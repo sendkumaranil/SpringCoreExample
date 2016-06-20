@@ -10,5 +10,6 @@ public interface MyEmployeeDao {
 	public void updateEmployee(MyEmployee employee);
 	public void deleteEmployee(MyEmployee employee);
 	public List<MyEmployee> fetchEmployee();
+	public Map<String,Object> getEmployeeUsingStoredProcById(MyEmployee employee);
 
 }
