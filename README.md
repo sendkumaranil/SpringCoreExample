@@ -253,4 +253,19 @@ Spring Framework- Basic Level
 			<property name="template" ref="hibernateTemplate"></property>  
 		</bean>  
 		
+We can also mapped the bean class using annotation,if we use annotation based bean then following line will be changed in above session factory configuration
 
+		<bean id="hibernateSessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+			<property name="dataSource" ref="myDataSource"/>
+			<property name="annotatedClasses">
+				<list>
+					<value>org.springexamples.bean.Employee</value>
+				</list>
+			</property>
+			<property name="hibernateProperties">
+				<props>
+					<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+					<prop key="hibernate.show_sql">true</prop>
+				</props>
+			</property>
+		</bean>
