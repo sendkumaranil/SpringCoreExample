@@ -101,5 +101,28 @@ public class MyEmployeeDaoImpl implements MyEmployeeDao {
 		});
 		return employeeList;
 	}
+	
+	@Override
+	public Map<String,Object> getEmployeeUsingStoredProcById(MyEmployee employee) {
+		
+		SqlParameter InParam_empid=new SqlParameter(Types.BIGINT);
+		List<SqlParameter> parameters=new ArrayList<SqlParameter>();
+		parameters.add(InParam_empid);
+		
+		Map<String,Object> empRec=empJdbcTemplate.call(new CallableStatementCreator() {
+			
+			@Override
+			public CallableStatement createCallableStatement(Connection conn)
+					throws SQLException {
+				CallableStatement callStmnt=conn.prepareCall("{call employeeById(?)}");
+				callStmnt.setLong(1, employee.getEmpid());
+				
+			
+				return callStmnt;
+			}
+		},parameters);
+		
+		return empRec;
+	}
 
 }
