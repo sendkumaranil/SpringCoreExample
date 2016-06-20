@@ -44,6 +44,15 @@ public class MyEmployeeService {
 		}
 	}
 
+	public void getEmployeeUsingStoredProcById(MyEmployee emp){
+		Map<String,Object> employeeMap=employeeObj.getEmployeeUsingStoredProcById(emp);
+		
+		for(Map.Entry<String, Object> keyValue:employeeMap.entrySet()){
+			System.out.println(keyValue.getValue());
+		}
+		
+	}
+	
 	public MyEmployeeDao getEmployeeObj() {
 		return employeeObj;
 	}
