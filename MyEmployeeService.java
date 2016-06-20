@@ -50,7 +50,6 @@ public class MyEmployeeService {
 		for(Map.Entry<String, Object> keyValue:employeeMap.entrySet()){
 			System.out.println(keyValue.getValue());
 		}
-		
 	}
 	
 	public MyEmployeeDao getEmployeeObj() {
