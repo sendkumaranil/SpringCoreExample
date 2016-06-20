@@ -40,6 +40,12 @@ public class EmployeeDbClient {
 			  PRIMARY KEY (`empid`)
 			) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 		 * 
+	 	delimiter //
+		create procedure employeeById (IN id bigint)
+		begin
+			select empname,birthdate,joindate,idtype,idno,email,mobileno from myemployee where empid=id;
+		end //
+		delimiter //;
 		 */
 		
 		//Step-2: Creating Employee Records
