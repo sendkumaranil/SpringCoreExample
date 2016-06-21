@@ -269,3 +269,15 @@ We can also mapped the bean class using annotation,if we use annotation based be
 				</props>
 			</property>
 		</bean>
+
+<b>NamedParameterJdbcTemplate:</b><br>
+<p>Spring provides another way to insert data by named parameter. In such way, we use names instead of ?(question mark). </p>
+<p>So it is better to remember the data for the column.</p>
+<p>example:</p>
+	insert into employee values (:id,:name,:salary)  
+
+<b>SimpleJdbcCall:</b><br>
+<p>A SimpleJdbcCall is a multi-threaded, reusable object representing a call to a stored procedure or a stored function. </p>
+<p>It provides meta data processing to simplify the code needed to access basic stored procedures/functions. </p>
+<p>All you need to provide is the name of the procedure/function and a Map containing the parameters when you execute the call. </p>
+<p>The names of the supplied parameters will be matched up with in and out parameters declared when the stored procedure was created. </p>
