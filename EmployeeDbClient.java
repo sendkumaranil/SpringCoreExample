@@ -3,14 +3,16 @@ package org.springexample.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springexample.service.MyEmployeeService;
 import org.springexamples.bean.MyEmployee;
+import org.springexamples.service.MyEmployeeService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class EmployeeDbClient {
 
 	public static void main(String[] args) {
+		//<!-- Spring Database access using JdbcTemplate -->
+		
 		//Registering Spring bean...
 		ApplicationContext context=new ClassPathXmlApplicationContext("spring-config.xml");
 		
@@ -27,7 +29,8 @@ public class EmployeeDbClient {
 		
 		/*Step-1:
 		 * 
-		 * MySQL Datbase table script
+		 * MySQL Datbase table and stored procedure script
+		 * -----------------------------------------------
 		 * CREATE TABLE `myemployee` (
 			  `empid` bigint(20) NOT NULL AUTO_INCREMENT,
 			  `empname` varchar(100),
@@ -39,13 +42,15 @@ public class EmployeeDbClient {
 			  `mobileno` varchar(20),
 			  PRIMARY KEY (`empid`)
 			) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+			
+			
+			delimiter //
+			create procedure employeeById (IN id bigint)
+			begin
+				select empname,birthdate,joindate,idtype,idno,email,mobileno from myemployee where empid=id;
+			end //
+			delimiter //;
 		 * 
-	 	delimiter //
-		create procedure employeeById (IN id bigint)
-		begin
-			select empname,birthdate,joindate,idtype,idno,email,mobileno from myemployee where empid=id;
-		end //
-		delimiter //;
 		 */
 		
 		//Step-2: Creating Employee Records
@@ -99,15 +104,15 @@ public class EmployeeDbClient {
 		
 		//Step-4:-----------------Inserting Record to database -------------
 			
-			for(MyEmployee employee:employeeList){
+			/*for(MyEmployee employee:employeeList){
 				empService.addEmployee(employee);
-			}
+			}*/
 		//------------------------------------------------------------------
 		
 			
 		
 		//Step-5:----------------Fetch Record from database ----------------
-			empService.fetchEmployee();
+			//empService.fetchEmployee();
 		//------------------------------------------------------------------
 		
 		
@@ -135,10 +140,12 @@ public class EmployeeDbClient {
 			empService.fetchEmployee();
 		//------------------------------------------------------------------
 		*/
+			MyEmployee emp=new MyEmployee();
+			emp.setEmpid(18);
+			
+			//empService.getEmployeeUsingStoredProcById(emp);
+			empService.getEmployeeById(emp);
 		
-		MyEmployee emp=new MyEmployee();
-		emp.setEmpid(12);
-		empService.getEmployeeUsingStoredProcById(emp);
 	}
 
 }
