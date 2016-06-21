@@ -149,4 +149,12 @@
 	<bean id="movieService" class="org.springexample.service.MovieService">
 		<property name="objMovieDao" ref="movieDao"></property>
 	</bean>
+	
+	<!-- Spring Database access using NamedParameterJdbcTemplate -->
+	<bean id="v2EmpDaoimpl" class="org.springexamples.daoImpl.MyEmployeeDaoImplV2">
+		<property name="dataSource" ref="myDataSource"/>
+	</bean>
+	<bean id="v2EmpService" class="org.springexamples.service.MyEmployeeServiceV2">
+		<property name="v2MyEmpDaoObj" ref="v2EmpDaoimpl"/>
+	</bean>
 </beans>
