@@ -1,10 +1,12 @@
-package org.springexample.service;
+package org.springexamples.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springexamples.bean.MyEmployee;
 import org.springexamples.dao.MyEmployeeDao;
 import org.springexamples.daoImpl.MyEmployeeDaoImpl;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 public class MyEmployeeService {
 	
@@ -50,6 +52,20 @@ public class MyEmployeeService {
 		for(Map.Entry<String, Object> keyValue:employeeMap.entrySet()){
 			System.out.println(keyValue.getValue());
 		}
+		
+	}
+	
+	public void getEmployeeById(MyEmployee emp){
+		MyEmployee employee=employeeObj.getEmployeeById(emp);
+		
+		System.out.println("Employee Id:"+employee.getEmpid());
+		System.out.println("Employee Name:"+employee.getEmpname());
+		System.out.println("Employee Birth Date:"+employee.getBirthDate());
+		System.out.println("Employee join Date"+employee.getJoinDate());
+		System.out.println("Employee Id Type:"+employee.getIdType()+" Employee Id No:"+employee.getIdno());
+		System.out.println("Employee Mobile No:"+employee.getMobileno());
+		System.out.println("Employee email:"+employee.getEmail());
+		
 	}
 	
 	public MyEmployeeDao getEmployeeObj() {
