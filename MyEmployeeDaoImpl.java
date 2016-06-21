@@ -1,13 +1,21 @@
 package org.springexamples.daoImpl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springexamples.bean.MyEmployee;
 import org.springexamples.dao.MyEmployeeDao;
+import org.springframework.jdbc.core.CallableStatementCreator;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.SqlParameter;
 
 public class MyEmployeeDaoImpl implements MyEmployeeDao {
 	
@@ -86,7 +94,7 @@ public class MyEmployeeDaoImpl implements MyEmployeeDao {
 		List<MyEmployee> employeeList=empJdbcTemplate.query(sql,new RowMapper<MyEmployee>(){
 
 			@Override
-			public MyEmployee mapRow(ResultSet rs, int arg1)throws SQLException {
+			public MyEmployee mapRow(ResultSet rs, int rowNum)throws SQLException {
 				MyEmployee employee=new MyEmployee();
 				employee.setEmpid(rs.getInt("empid"));
 				employee.setEmpname(rs.getString("empname"));
@@ -101,7 +109,7 @@ public class MyEmployeeDaoImpl implements MyEmployeeDao {
 		});
 		return employeeList;
 	}
-	
+
 	@Override
 	public Map<String,Object> getEmployeeUsingStoredProcById(MyEmployee employee) {
 		
@@ -125,4 +133,29 @@ public class MyEmployeeDaoImpl implements MyEmployeeDao {
 		return empRec;
 	}
 
+	@Override
+	public MyEmployee getEmployeeById(MyEmployee employee) {
+		String sql="select * from myemployee where empid=?";
+		
+		MyEmployee emp=empJdbcTemplate.queryForObject(sql, new Object[]{employee.getEmpid()}, new MyEmployeeMapper());
+		return emp;
+	}
+
+}
+class MyEmployeeMapper implements RowMapper<MyEmployee>{
+
+	@Override
+	public MyEmployee mapRow(ResultSet rs, int rowNum) throws SQLException {
+		MyEmployee employee=new MyEmployee();
+		employee.setEmpid(rs.getInt("empid"));
+		employee.setEmpname(rs.getString("empname"));
+		employee.setBirthDate(rs.getString("birthdate"));
+		employee.setJoinDate(rs.getString("joindate"));
+		employee.setIdType(rs.getString("idtype"));
+		employee.setIdno(rs.getString("idno"));
+		employee.setEmail(rs.getString("email"));
+		employee.setMobileno(rs.getString("mobileno"));
+		return employee;
+	}
+	
 }
