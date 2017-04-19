@@ -281,3 +281,86 @@ We can also mapped the bean class using annotation,if we use annotation based be
 <p>It provides meta data processing to simplify the code needed to access basic stored procedures/functions. </p>
 <p>All you need to provide is the name of the procedure/function and a Map containing the parameters when you execute the call. </p>
 <p>The names of the supplied parameters will be matched up with in and out parameters declared when the stored procedure was created. </p>
+
+<h4>How will you inject prototype bean into singleton bean scope to ensure that we will get different object of prototype bean?</h4>
+<p>We can use lookup-method tag to inject prototype bean into singleton bean:</p>
+<p> Example:</p>
+
+  OUTPUT:
+ * when simple injection like below:
+ 
+			  <bean name="employee" class="com.springcore.example.Employee">
+					<property name="id" value="121"/>
+					<property name="name" value="Anil Kumar"/>
+					<property name="address" ref="address"/>		
+				</bean>
+				
+				<bean name="address" class="com.springcore.example.Address" scope="prototype">
+					<property name="addid" value="222"/>
+					<property name="city" value="Bangalore"/>
+					<property name="state" value="Karnataka"/>
+				</bean>
+			  
+			Employee created
+			address created hashcode:31596604
+			Employee [id=121, name=Anil Kumar, address=Address [addid=222, city=Bangalore, state=Karnataka]]
+			Employee [id=121, name=Anil Kumar, address=Address [addid=222, city=Bangalore, state=Karnataka]]
+
+ * when lookup-method used then:
+ 
+			  <bean name="employee" class="com.springcore.example.Employee">		
+					<property name="id" value="121"/>
+					<property name="name" value="Anil Kumar"/>
+					<lookup-method name="getAddress" bean="address"/>
+				</bean>
+				
+				<bean name="address" class="com.springcore.example.Address" scope="prototype">
+					<property name="addid" value="222"/>
+					<property name="city" value="Bangalore"/>
+					<property name="state" value="Karnataka"/>
+				</bean>
+			  
+			Employee created
+			address created hashcode:6322767
+			Employee [id=121, name=Anil Kumar, address=Address [addid=222, city=Bangalore, state=Karnataka]]
+			address created hashcode:26256990
+			Employee [id=121, name=Anil Kumar, address=Address [addid=222, city=Bangalore, state=Karnataka]]
+* Employee Bean
+			
+			public class Employee {
+				private int id;
+				private String name;
+				private Address address;
+				
+				public Employee(){
+					System.out.println("Employee created");
+				}
+				
+				//others setters and getters
+				public Address getAddress() {
+					return address;
+				}
+				public void setAddress(Address address) {
+					this.address = address;
+				}
+				@Override
+				public String toString() {
+					return "Employee [id=" + id + ", name=" + name + ", address=" + getAddress() + "]";
+				}
+			}
+* Address Bean
+			
+			public class Address {
+				private int addid;
+				private String city;
+				private String state;
+				
+				public Address(){
+					System.out.println("address created hashcode:" +Address.this.hashCode());
+				}
+				//others setters and getters
+				@Override
+				public String toString() {
+					return "Address [addid=" + addid + ", city=" + city + ", state=" + state + "]";
+				}
+			}
