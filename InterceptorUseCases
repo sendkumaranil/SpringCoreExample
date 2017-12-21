@@ -1,0 +1,14 @@
+Interceptor 
+Use Case -1:
+Interceptor example:
+
+Use Case:
+1. One configure value for maintaince at db (on maintance website will be close);
+2. Only Admin can change or update maintaince value.
+3. Once intercept this value as true then request would not be process by user.
+
+Use Case -2:
+1. Website will not provide service on sunday (sunday closed) try on other day.
+
+Use Case -3:
+1. Logging for user activities.
