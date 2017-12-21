@@ -12,3 +12,12 @@ Use Case -2:
 
 Use Case -3:
 1. Logging for user activities.
+
+Code example:
+Intercept for specific url:
+<mvc:interceptors>
+  <mvc:interceptor>
+    <mvc:mapping path="/homepage"/>
+    <bean class="interceptor handler class here"/>
+  </mvc:interceptor>
+</mvc:interceptors>
